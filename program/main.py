@@ -12,14 +12,26 @@ jaime = DriveBase(motor_esquerda, motor_direita, wheel_diameter=43.2, axle_track
 cor_direita = ColorSensor(Port.S3)
 cor_esquerda = ColorSensor(Port.S2)
 
+velocidade_normal = 100
+velocidade_curva = 50
+
 while cor_esquerda.color() != Color.RED and cor_direita.color() != Color.RED:
 
     if cor_esquerda.color() == Color.WHITE and cor_direita.color() == Color.WHITE:
-        jaime.drive(100, 0)
+        jaime.drive(velocidade_normal, 0)
+        ev3.screen.print("BRANCO E/D")
 
     elif cor_esquerda.color() == Color.BLACK and cor_direita.color() == Color.WHITE:
-        jaime.drive(50, -120)
+        jaime.drive(velocidade_curva, -120)
+        ev3.screen.print("PRETO E")
 
     elif cor_esquerda.color() == Color.WHITE and cor_direita.color() == Color.BLACK: 
-        jaime.drive(50, 120)
+        jaime.drive(velocidade_curva, 120)
+        ev3.screen.print("PRETO D")
+
+    elif cor_esquerda.color() == Color.BLACK and cor_direita.color() == Color.BLACK:
+        jaime.drive(velocidade_curva, 0)
+        wait(1000)
+        ev3.screen.print("PRETO E/D")
+
     
